@@ -110,8 +110,10 @@ begin
                  Dout => Feature_selected);
 
 -- CMP
-next_node <= (comparisom_value > feature_selected);
+next_node <= '1' when (Feature_selected > comparisom_value) else '0';
 -- Addr logic
+right_addr <= addr_distance + curr_addr;
+left_addr <= curr_addr + "0000001";
 next_addr <= right_addr when next_node = '1' else left_addr;
 -- Accumulating the trees results
 addition <= Int_Dout OR leaf_value;
