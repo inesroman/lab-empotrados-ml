@@ -77,7 +77,8 @@ signal feature_addr: STD_LOGIC_VECTOR (2 downto 0);
 signal addr_distance: STD_LOGIC_VECTOR (3 downto 0);
 signal comparisom_value, Feature_selected, leaf_value, Int_Dout, addition: STD_LOGIC_VECTOR (7 downto 0);
 signal curr_addr, next_addr, left_addr, right_addr: STD_LOGIC_VECTOR (6 downto 0);
-signal next_node, reg_reset, node_type, internal_done, load_addr, Trees_finished, load_output, int_reset: std_logic;
+signal next_node, reg_reset, node_type, internal_done, load_addr, load_output, int_reset: std_logic;
+signal Trees_finished : std_logic;
 type state_type is (Processing, Finished);
 signal state, next_state : state_type; 
 begin
@@ -116,7 +117,7 @@ right_addr <= addr_distance + curr_addr;
 left_addr <= curr_addr + "0000001";
 next_addr <= right_addr when next_node = '1' else left_addr;
 -- Accumulating the trees results
-addition <= Int_Dout OR leaf_value;
+addition <= Int_Dout + leaf_value;
 -- Output register
 output_reg: reg
         generic map(BITS => 8)
@@ -143,7 +144,7 @@ output_reg: reg
    end process;
 
    --State-Machine
-   OUTPUT_DECODE: process (state, Trees_finished, start)-- recordad que en la lista de sensibilidad deben estar todas las se�ales que provoquen que el proceso pueda cambiar sus salidas. Si met�is nuevas entradas, incluidlas. 
+   OUTPUT_DECODE: process (state, Trees_finished, start, addr_distance, node_type)-- recordad que en la lista de sensibilidad deben estar todas las se�ales que provoquen que el proceso pueda cambiar sus salidas. Si met�is nuevas entradas, incluidlas. 
    begin
  -- valores por defecto, si no se asigna otro valor en un estado valdr�n lo que se asigna aqu�
  -- si necesit�is m�as se�ales a�adirlas
@@ -151,6 +152,7 @@ output_reg: reg
 		load_addr <= '0'; 
 		Internal_Done <= '0';
 		int_reset <= '0';
+        Trees_finished <= '0';
  	-- Estado Inicio          
  	-- Esta m�quina de estados y sus salidas la tene�s que dise�ar vosotros. Estas l�neas son s�lo un ejemplo.
         if (state = Processing) then
@@ -164,16 +166,18 @@ output_reg: reg
                     next_state <= Processing;
                 end if;
             else 
+                load_output <= '0';
                 load_addr <= '1';
                 next_state <= Processing;
             end if;
         else    
-            if(reset = '1' or int_reset = '1') then
+            if (start = '1') then
+                int_reset <= '1';
                 next_state <= Processing;
             else 
                 Internal_Done <= '1';
-                next_state <= Finished;
-            end if;    
+                next_state <= Finished;   
+            end if;
      	end if;
   	end process;	
 
