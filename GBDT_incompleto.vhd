@@ -171,6 +171,8 @@ output_reg: reg
                 next_state <= Processing;
             end if;
         else    
+            load_output <= '0';
+            load_addr <= '0';
             if (start = '1') then
                 int_reset <= '1';
                 next_state <= Processing;

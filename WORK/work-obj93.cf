@@ -1,0 +1,16 @@
+v 4
+file "/home/ines/unizar/cuatri 8/empotrados/fuentes estudiantes/" "GBDT_incompleto.vhd" "8f801dc7f69843536783c3b94a8e97f209b97ae3" "20250213185032.478":
+  entity gbdt at 20( 497) + 0 on 13;
+  architecture behavioral of gbdt at 47( 1341) + 0 on 14;
+file "/home/ines/unizar/cuatri 8/empotrados/fuentes estudiantes/" "gbdt_test.vhd" "c5ea44f76c6a3ad87462cba68134529d159fa3df" "20250213185032.439":
+  entity testbench at 3( 26) + 2 on 11;
+  architecture behavior of testbench at 10( 149) + 2 on 12;
+file "/home/ines/unizar/cuatri 8/empotrados/fuentes estudiantes/" "memoriaROM_128x16.vhd" "3598a04ae2e8a0980ea69dca9de41c49113bc834" "20250213185032.591":
+  entity memoriarom_128x16 at 20( 489) + 0 on 17;
+  architecture behavioral of memoriarom_128x16 at 42( 1359) + 0 on 18;
+file "/home/ines/unizar/cuatri 8/empotrados/fuentes estudiantes/" "mux.vhd" "6e6d9c3890127f381d0f3f7d5a6c2e3da41425fd" "20250213185032.627":
+  entity mux8_1 at 5( 184) + 0 on 19;
+  architecture behavioral of mux8_1 at 16( 525) + 0 on 20;
+file "/home/ines/unizar/cuatri 8/empotrados/fuentes estudiantes/" "reg.vhd" "8c04d1b1837fa08564d49af47ac71a7de2e8bd08" "20250213185032.562":
+  entity reg at 5( 191) + 0 on 15;
+  architecture behavioral of reg at 22( 574) + 0 on 16;
