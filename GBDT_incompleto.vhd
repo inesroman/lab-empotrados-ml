@@ -111,7 +111,7 @@ begin
                  Dout => Feature_selected);
 
 -- CMP
-next_node <= '1' when ((Feature_selected < comparisom_value) or node_type = '1') else '0';
+next_node <= '1' when ((Feature_selected <= comparisom_value) or node_type = '1') else '0';
 -- Addr logic
 right_addr <= addr_distance + curr_addr;
 left_addr <= curr_addr + "0000001";
