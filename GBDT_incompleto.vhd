@@ -111,7 +111,7 @@ begin
                  Dout => Feature_selected);
 
 -- CMP
-next_node <= '1' when ((Feature_selected > comparisom_value) or node_type = '1') else '0';
+next_node <= '1' when ((Feature_selected < comparisom_value) or node_type = '1') else '0';
 -- Addr logic
 right_addr <= addr_distance + curr_addr;
 left_addr <= curr_addr + "0000001";
@@ -152,6 +152,8 @@ output_reg: reg
 		load_addr <= '0'; 
 		Internal_Done <= '0';
 		int_reset <= '0';
+        load_output <= '0';
+        load_addr <= '0';
         Trees_finished <= '0';
  	-- Estado Inicio          
  	-- Esta m�quina de estados y sus salidas la tene�s que dise�ar vosotros. Estas l�neas son s�lo un ejemplo.
@@ -166,13 +168,10 @@ output_reg: reg
                     next_state <= Processing;
                 end if;
             else 
-                load_output <= '0';
                 load_addr <= '1';
                 next_state <= Processing;
             end if;
         else    
-            load_output <= '0';
-            load_addr <= '0';
             if (start = '1') then
                 int_reset <= '1';
                 next_state <= Processing;
